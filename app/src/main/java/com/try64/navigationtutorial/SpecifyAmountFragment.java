@@ -6,12 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -21,6 +26,9 @@ public class SpecifyAmountFragment extends Fragment implements View.OnClickListe
 
     NavController navController;
     Button nextButton, cancelButton;
+    TextView recipient;
+    TextInputEditText textInputEditText;
+    String recipientName;
 
     public SpecifyAmountFragment() {
         // Required empty public constructor
@@ -30,6 +38,7 @@ public class SpecifyAmountFragment extends Fragment implements View.OnClickListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //navController = new NavController(getActivity().getApplicationContext());
+        recipientName = getArguments().getString("recipient");
     }
 
     @Override
@@ -45,18 +54,30 @@ public class SpecifyAmountFragment extends Fragment implements View.OnClickListe
 
         navController = Navigation.findNavController(view);
 
+        recipient = view.findViewById(R.id.recipient);
+
         nextButton = view.findViewById(R.id.send_btn);
         cancelButton = view.findViewById(R.id.cancel_btn);
+        textInputEditText = view.findViewById(R.id.input_amount);
 
         nextButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+
+        recipient.setText("Recipient's name is " + recipientName);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.send_btn:
-                navController.navigate(R.id.action_specifyAmountFragment_to_confirmationFragment);
+                if (!textInputEditText.getText().toString().trim().isEmpty()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("recipient", recipientName);
+                    bundle.putParcelable("ammount", new Money(new BigDecimal(textInputEditText.getText().toString().trim())));
+
+                    navController.navigate(R.id.action_specifyAmountFragment_to_confirmationFragment, bundle);
+                }
+
                 break;
             case R.id.cancel_btn:
                 navController.popBackStack();

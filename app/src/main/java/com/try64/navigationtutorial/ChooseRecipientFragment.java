@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +23,7 @@ public class ChooseRecipientFragment extends Fragment implements View.OnClickLis
 
     NavController navController;
     Button nextButton, cancelButton;
+    TextInputEditText input_recipient;
 
     public ChooseRecipientFragment() {
         // Required empty public constructor
@@ -38,6 +41,8 @@ public class ChooseRecipientFragment extends Fragment implements View.OnClickLis
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+
+        input_recipient = view.findViewById(R.id.input_recipient);
 
         nextButton = view.findViewById(R.id.next_btn);
         cancelButton = view.findViewById(R.id.cancel_btn);
@@ -57,7 +62,13 @@ public class ChooseRecipientFragment extends Fragment implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next_btn:
-                navController.navigate(R.id.action_chooseRecipientFragment_to_specifyAmountFragment);
+                if (!input_recipient.getText().toString().trim().isEmpty()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("recipient", input_recipient.getText().toString().trim());
+
+                    navController.navigate(R.id.action_chooseRecipientFragment_to_specifyAmountFragment, bundle);
+                }
+
                 break;
             case R.id.cancel_btn:
                 navController.popBackStack();
