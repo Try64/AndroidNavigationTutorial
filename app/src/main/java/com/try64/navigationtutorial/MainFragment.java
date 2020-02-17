@@ -59,13 +59,13 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.view_transactions_btn:
-                navController.navigate(R.id.viewTransactionFragment);
+                navController.navigate(R.id.action_mainFragment_to_viewTransactionFragment);
                 break;
             case R.id.send_money_btn:
-                navController.navigate(R.id.chooseRecipientFragment);
+                navController.navigate(R.id.action_mainFragment_to_chooseRecipientFragment);
                 break;
             case R.id.view_balance_btn:
-                navController.navigate(R.id.viewBalanceFragment);
+                navController.navigate(R.id.action_mainFragment_to_viewBalanceFragment);
                 break;
 
         }

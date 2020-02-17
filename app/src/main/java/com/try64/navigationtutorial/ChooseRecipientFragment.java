@@ -57,7 +57,7 @@ public class ChooseRecipientFragment extends Fragment implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next_btn:
-                navController.navigate(R.id.specifyAmountFragment);
+                navController.navigate(R.id.action_chooseRecipientFragment_to_specifyAmountFragment);
                 break;
             case R.id.cancel_btn:
                 navController.popBackStack();

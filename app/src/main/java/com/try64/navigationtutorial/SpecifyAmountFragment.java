@@ -55,8 +55,8 @@ public class SpecifyAmountFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.next_btn:
-                navController.navigate(R.id.confirmationFragment);
+            case R.id.send_btn:
+                navController.navigate(R.id.action_specifyAmountFragment_to_confirmationFragment);
                 break;
             case R.id.cancel_btn:
                 navController.popBackStack();
